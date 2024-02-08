@@ -14,8 +14,8 @@ public class ProductWine extends Product implements DailyUpdateable{
     //#################################################################################################
     //#################################################################################################
     // Konstruktoren
-    public ProductWine(String name, int quality, int expirationDate, BigDecimal priceBase) {
-        super(name, quality, 1000, priceBase);
+    public ProductWine(String name, ProductType type, int quality, int expirationDate, BigDecimal basePrice) {
+        super(name, type, quality, 1000, basePrice);
         this.timeOnShelf=0;
     }
 

@@ -14,8 +14,10 @@ public class ProductCheese extends Product implements DailyUpdateable{
     //#################################################################################################
     //#################################################################################################
     // Konstruktoren
-    public ProductCheese(String name, int quality, int expirationDate, BigDecimal priceBase) {
-        super(name, quality, expirationDate, priceBase);
+
+
+    public ProductCheese(String name, ProductType type, int quality, int expirationDate, BigDecimal basePrice) {
+        super(name, type, quality, expirationDate, basePrice);
     }
 
     //#################################################################################################

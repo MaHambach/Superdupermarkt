@@ -6,6 +6,7 @@ import java.util.Objects;
 public class Product implements DailyUpdateable{
     // Attribute
     private String name; //Bezeichnung
+    private ProductType type;
     private int quality; //Qualität
     private int expirationDate; //Verfallsdatum: Zählt die Tage bis zum Verfall.
     private BigDecimal basePrice; //Grundpreis
@@ -15,12 +16,15 @@ public class Product implements DailyUpdateable{
     //#################################################################################################
     //#################################################################################################
     // Konstruktoren
-    public Product(String name, int quality, int expirationDate, BigDecimal basePrice) {
+
+    public Product(String name, ProductType type, int quality, int expirationDate, BigDecimal basePrice) {
         this.name = name;
+        this.type = type;
         this.quality = quality;
         this.expirationDate = expirationDate;
         this.basePrice = basePrice;
         updateDailyPrice();
+
     }
 
     //#################################################################################################
