@@ -74,5 +74,7 @@ public class Main {
         productList.add(wine7);
         productList.add(wine8);
         productList.add(wine9);
+
+        for (Product product : productList) System.out.println(product);
     }
 }

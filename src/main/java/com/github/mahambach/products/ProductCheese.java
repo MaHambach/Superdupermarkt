@@ -23,6 +23,7 @@ public class ProductCheese extends Product implements DailyUpdateable{
     //#################################################################################################
     // Methoden
     // Methode zur Überprüfung, ob Käse im Regal eingeräumt werden kann
+    @Override
     public boolean canBeShelved() {
         return getQuality() >= MIN_QUALITY;
     }

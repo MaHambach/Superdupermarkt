@@ -1,6 +1,7 @@
 package com.github.mahambach.products;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class ProductWine extends Product implements DailyUpdateable{
     // Attribute
@@ -14,7 +15,7 @@ public class ProductWine extends Product implements DailyUpdateable{
     //#################################################################################################
     // Konstruktoren
     public ProductWine(String name, int quality, int expirationDate, BigDecimal priceBase) {
-        super(name, quality, expirationDate, priceBase);
+        super(name, quality, 1000, priceBase);
         this.timeOnShelf=0;
     }
 
@@ -23,8 +24,9 @@ public class ProductWine extends Product implements DailyUpdateable{
     //#################################################################################################
     // Methoden
     // Methode zur Überprüfung, ob Wein im Regal eingeräumt werden kann
+    @Override
     public boolean canBeShelved() {
-        return true;
+        return getQuality() >= MIN_QUALITY;
     }
 
     @Override
@@ -34,6 +36,7 @@ public class ProductWine extends Product implements DailyUpdateable{
     }
 
     // Methode zur Aktualisierung der Qualität
+    @Override
     public void updateQuality() {
         this.timeOnShelf++;
         if (getQuality() < MAX_QUALITY && this.timeOnShelf%10 == 0) {
@@ -46,5 +49,19 @@ public class ProductWine extends Product implements DailyUpdateable{
     @Override
     public void updateDailyPrice() {
         // Der Preis von Wein verändert sich nicht, wenn er im Regal steht.
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ProductWine that = (ProductWine) o;
+        return timeOnShelf == that.timeOnShelf;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), timeOnShelf);
     }
 }
