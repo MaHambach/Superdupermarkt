@@ -8,6 +8,18 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        ShopService shopService = new ShopService();
+        List<Product> productList = oldSetup();
+
+        for(Product product : productList) shopService.addProductToShelf(product);
+        System.out.println();
+        System.out.println();
+        for(Product product : shopService.getShelvedList()) System.out.println(product);
+    }
+
+    public static List<Product> oldSetup(){
+        List<Product> productList = new ArrayList<>();
+
         Product product0 = new Product("Cereal", ProductType.GENERIC, 85, 30, new BigDecimal("3.50"));
         Product product1 = new Product("Milk", ProductType.GENERIC, 80, 5, new BigDecimal("2.50"));
         Product product2 = new Product("Bread", ProductType.GENERIC, 70, 10, new BigDecimal("1.50"));
@@ -18,7 +30,6 @@ public class Main {
         Product product7 = new Product("Bananas", ProductType.GENERIC, 95, 5, new BigDecimal("1.50"));
         Product product8 = new Product("Potatoes", ProductType.GENERIC, 75, 12, new BigDecimal("2.00"));
         Product product9 = new Product("Tomatoes", ProductType.GENERIC, 80, 8, new BigDecimal("2.50"));
-        List<Product> productList = new ArrayList<>();
 
         productList.add(product0);
         productList.add(product1);
@@ -75,6 +86,7 @@ public class Main {
         productList.add(wine8);
         productList.add(wine9);
 
-        for (Product product : productList) System.out.println(product);
+        return productList;
+
     }
 }

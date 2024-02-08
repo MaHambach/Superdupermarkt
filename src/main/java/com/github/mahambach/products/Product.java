@@ -53,6 +53,9 @@ public class Product implements DailyUpdateable{
         return true;
     }
 
+    public String thisCantBeShelvedBecause() {
+        return "Irgendwas ist furchtbar schief gelaufen.";
+    }
     //#################################################################################################
     //#################################################################################################
     // Getter, Setter und andere generische Methoden
@@ -111,7 +114,7 @@ public class Product implements DailyUpdateable{
 
     @Override
     public String toString() {
-        return String.format("Product{name= '%s'%s, quality=%4d, expirationDate=%4d, priceBase=%6s €, priceDaily=%6s €}"
-        , name, " ".repeat(18-name.length()), quality, expirationDate, basePrice, dailyPrice );
+        return String.format("Typ= %4s, Bezeichnung= '%s'%s, Qualität=%4d, Verfallsdatum=%4d, Grundpreis=%6s €, Tagespreis=%6s €"
+        ,type.getDescription(), name, " ".repeat(18-name.length()), quality, expirationDate, basePrice, dailyPrice );
     }
 }

@@ -15,7 +15,7 @@ public class ProductWine extends Product implements DailyUpdateable{
     //#################################################################################################
     // Konstruktoren
     public ProductWine(String name, ProductType type, int quality, int expirationDate, BigDecimal basePrice) {
-        super(name, type, quality, 1000, basePrice);
+        super(name, type, quality, 999, basePrice);
         this.timeOnShelf=0;
     }
 
@@ -32,7 +32,6 @@ public class ProductWine extends Product implements DailyUpdateable{
     @Override
     public void updateForNewDay() {
         updateQuality();
-        updateDailyPrice();
     }
 
     // Methode zur Aktualisierung der Qualität
@@ -47,8 +46,8 @@ public class ProductWine extends Product implements DailyUpdateable{
     }
 
     @Override
-    public void updateDailyPrice() {
-        // Der Preis von Wein verändert sich nicht, wenn er im Regal steht.
+    public String thisCantBeShelvedBecause() {
+        return String.format("Qualität ist %d, muss aber mindestens %d sein.", getQuality(), MIN_QUALITY);
     }
 
     @Override

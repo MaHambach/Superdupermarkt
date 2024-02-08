@@ -40,4 +40,9 @@ public class ProductCheese extends Product implements DailyUpdateable{
     public void updateQuality() {
         setQuality(getQuality()-QUALITY_LOSS_PER_DAY);
     }
+
+    @Override
+    public String thisCantBeShelvedBecause() {
+        return String.format("Qualität ist %d, muss aber mindestens %d sein.", getQuality(), MIN_QUALITY);
+    }
 }
