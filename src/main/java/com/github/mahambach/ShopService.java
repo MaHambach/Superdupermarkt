@@ -1,15 +1,17 @@
 package com.github.mahambach;
 
 import com.github.mahambach.products.*;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Data
 public class ShopService {
     // Attribute
-    private List<Product> shelvedList;
-    private List<Product> toBeUnshelved;
+    private final List<Product> shelvedList;
+    private final List<Product> toBeUnshelved;
 
     //#################################################################################################
     //#################################################################################################
@@ -37,44 +39,5 @@ public class ShopService {
         else System.out.println("Error: Product can't be shelved. Reason: "+ product.thisCantBeShelvedBecause());
     }
 
-    //#################################################################################################
-    //#################################################################################################
-    // Getter, Setter und andere generische Methoden
 
-    public List<Product> getShelvedList() {
-        return shelvedList;
-    }
-
-    public void setShelvedList(List<Product> shelvedList) {
-        this.shelvedList = shelvedList;
-    }
-
-    public List<Product> getToBeUnshelved() {
-        return toBeUnshelved;
-    }
-
-    public void setToBeUnshelved(List<Product> toBeUnshelved) {
-        this.toBeUnshelved = toBeUnshelved;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ShopService that = (ShopService) o;
-        return Objects.equals(shelvedList, that.shelvedList) && Objects.equals(toBeUnshelved, that.toBeUnshelved);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(shelvedList, toBeUnshelved);
-    }
-
-    @Override
-    public String toString() {
-        return "ShopService{" +
-                "shelvedList=" + shelvedList +
-                ", toBeUnshelved=" + toBeUnshelved +
-                '}';
-    }
 }
