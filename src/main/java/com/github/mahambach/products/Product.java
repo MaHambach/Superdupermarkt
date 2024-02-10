@@ -1,9 +1,16 @@
 package com.github.mahambach.products;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Product implements DailyUpdateable{
+@Getter
+@Setter
+@EqualsAndHashCode
+public abstract class Product {
     // Attribute
     private String name; //Bezeichnung
     private ProductType type;
@@ -16,15 +23,14 @@ public class Product implements DailyUpdateable{
     //#################################################################################################
     //#################################################################################################
     // Konstruktoren
+    protected Product(){}
 
-    public Product(String name, ProductType type, int quality, int expirationDate, BigDecimal basePrice) {
+    protected Product(String name, int quality, int expirationDate, BigDecimal basePrice) {
         this.name = name;
-        this.type = type;
         this.quality = quality;
         this.expirationDate = expirationDate;
         this.basePrice = basePrice;
         updateDailyPrice();
-
     }
 
     //#################################################################################################
@@ -33,22 +39,20 @@ public class Product implements DailyUpdateable{
     // Methoden
     // Aktualisiert die Daten des Produkts für den neuen Tag.
     public void updateForNewDay(){
+        updateQuality();
         updateDailyPrice();
     }
 
-    @Override
     public void updateQuality() {
         // Die Qualität eines generischen Produkts verändert sich nicht.
     }
 
-    @Override
     public void updateDailyPrice() {
         this.dailyPrice = this.basePrice.add(
                 new BigDecimal("0.10").multiply(
                         new BigDecimal(this.quality)));
     }
 
-    @Override
     public boolean canBeShelved() {
         return true;
     }
@@ -56,65 +60,17 @@ public class Product implements DailyUpdateable{
     public String thisCantBeShelvedBecause() {
         return "Irgendwas ist furchtbar schief gelaufen.";
     }
-    //#################################################################################################
-    //#################################################################################################
-    // Getter, Setter und andere generische Methoden
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getQuality() {
-        return quality;
-    }
-
-    public void setQuality(int quality) {
-        this.quality = quality;
-    }
-
-    public int getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(int expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public BigDecimal getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(BigDecimal basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public BigDecimal getDailyPrice() {
-        return dailyPrice;
-    }
-
-    public void setDailyPrice(BigDecimal dailyPrice) {
-        this.dailyPrice = dailyPrice;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return quality == product.quality && expirationDate == product.expirationDate && Objects.equals(name, product.name) && Objects.equals(basePrice, product.basePrice) && Objects.equals(dailyPrice, product.dailyPrice);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, quality, expirationDate, basePrice, dailyPrice);
-    }
 
     @Override
     public String toString() {
-        return String.format("Typ= %4s, Bezeichnung= '%s'%s, Qualität=%4d, Verfallsdatum=%4d, Grundpreis=%6s €, Tagespreis=%6s €"
-        ,type.getDescription(), name, " ".repeat(18-name.length()), quality, expirationDate, basePrice, dailyPrice );
+        return String.format("Typ= %4s, Bezeichnung= '%s'%s, Qualität=%4d, Verfallsdatum=%4d, Grundpreis=%6s €, Tagespreis=%6s €",
+                type.getDescription(),
+                name,
+                " ".repeat(18-name.length()),
+                quality,
+                expirationDate,
+                basePrice,
+                dailyPrice
+        );
     }
 }

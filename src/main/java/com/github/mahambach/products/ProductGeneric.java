@@ -1,42 +1,27 @@
 package com.github.mahambach.products;
 
-import lombok.EqualsAndHashCode;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
-
-public class ProductCheese extends Product {
+public class ProductGeneric extends Product {
     // Attribute
-    private static final int MIN_QUALITY = 30;
-    private static final int QUALITY_LOSS_PER_DAY = 1;
-    private static final int MIN_EXPIRATION_DAYS = 50;
-    private static final int MAX_EXPIRATION_DAYS = 100;
-
-
     //#################################################################################################
     //#################################################################################################
     //#################################################################################################
     // Konstruktoren
 
-
-    public ProductCheese(String name, int quality, int expirationDate, BigDecimal basePrice) {
+    public ProductGeneric(String name, int quality, int expirationDate, BigDecimal basePrice) {
         super(name, quality, expirationDate, basePrice);
-        this.setType(ProductType.CHEESE);
+        this.setType(ProductType.GENERIC);
     }
 
     //#################################################################################################
     //#################################################################################################
     //#################################################################################################
     // Methoden
-    @Override
-    public void updateForNewDay() {
-        updateQuality();
-        updateDailyPrice();
-    }
-
-    @Override
-    public void updateQuality() {
-        setQuality(getQuality()-QUALITY_LOSS_PER_DAY);
+    public void updateQuality(){
+        // Die Qualität eines generischen Produkts verändert sich nicht.
     }
 
     @Override
@@ -44,14 +29,14 @@ public class ProductCheese extends Product {
         super.updateDailyPrice();
     }
 
-    // Methode zur Überprüfung, ob Käse im Regal eingeräumt werden kann
     @Override
     public boolean canBeShelved() {
-        return getQuality() >= MIN_QUALITY;
+        return true;
     }
 
-    @Override
     public String thisCantBeShelvedBecause() {
-        return String.format("Qualität ist %d, muss aber mindestens %d sein.", getQuality(), MIN_QUALITY);
+        return "Irgendwas ist furchtbar schief gelaufen. Generische Produkte können immer eingeräumt werden.";
     }
 }
+
+

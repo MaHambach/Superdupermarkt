@@ -1,9 +1,11 @@
 package com.github.mahambach.products;
 
+import lombok.EqualsAndHashCode;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class ProductWine extends Product implements DailyUpdateable{
+public class ProductWine extends Product {
     // Attribute
     private static final int MIN_QUALITY = 0;
     private static final int MAX_QUALITY = 50;
@@ -14,8 +16,9 @@ public class ProductWine extends Product implements DailyUpdateable{
     //#################################################################################################
     //#################################################################################################
     // Konstruktoren
-    public ProductWine(String name, ProductType type, int quality, int expirationDate, BigDecimal basePrice) {
-        super(name, type, quality, 999, basePrice);
+    public ProductWine(String name, int quality, BigDecimal basePrice) {
+        super(name, quality, 999, basePrice);
+        this.setType(ProductType.WINE);
         this.timeOnShelf=0;
     }
 
@@ -23,18 +26,6 @@ public class ProductWine extends Product implements DailyUpdateable{
     //#################################################################################################
     //#################################################################################################
     // Methoden
-    // Methode zur Überprüfung, ob Wein im Regal eingeräumt werden kann
-    @Override
-    public boolean canBeShelved() {
-        return getQuality() >= MIN_QUALITY;
-    }
-
-    @Override
-    public void updateForNewDay() {
-        updateQuality();
-    }
-
-    // Methode zur Aktualisierung der Qualität
     @Override
     public void updateQuality() {
         this.timeOnShelf++;
@@ -46,21 +37,18 @@ public class ProductWine extends Product implements DailyUpdateable{
     }
 
     @Override
+    public void updateDailyPrice() {
+        // Wein verändern seinen Pres nicht, nachdem er ins Regal eingeräumt wurde.
+    }
+
+    @Override
+    public boolean canBeShelved() {
+        return getQuality() >= MIN_QUALITY;
+    }
+
+    @Override
     public String thisCantBeShelvedBecause() {
         return String.format("Qualität ist %d, muss aber mindestens %d sein.", getQuality(), MIN_QUALITY);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        ProductWine that = (ProductWine) o;
-        return timeOnShelf == that.timeOnShelf;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), timeOnShelf);
-    }
 }

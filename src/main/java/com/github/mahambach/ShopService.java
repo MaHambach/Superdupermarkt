@@ -10,20 +10,26 @@ import java.util.Objects;
 @Data
 public class ShopService {
     // Attribute
+    private static ShopService instance;
+
     private final List<Product> shelvedList;
     private final List<Product> toBeUnshelved;
+
 
     //#################################################################################################
     //#################################################################################################
     //#################################################################################################
     // Konstruktoren
-    public ShopService() {
+    private ShopService() {
         this.shelvedList = new ArrayList<>();
         this.toBeUnshelved = new ArrayList<>();
     }
-    public ShopService(List<Product> shelvedList, List<Product> toBeUnshelved) {
-        this.shelvedList = shelvedList;
-        this.toBeUnshelved = toBeUnshelved;
+
+    public static ShopService getInstance() {
+        if (instance == null) {
+            instance = new ShopService();
+        }
+        return instance;
     }
 
     //#################################################################################################
@@ -39,5 +45,15 @@ public class ShopService {
         else System.out.println("Error: Product can't be shelved. Reason: "+ product.thisCantBeShelvedBecause());
     }
 
+    public List<Product> updateShelf(){
+        for(Product product : shelvedList){
+            product.updateForNewDay();
+            if(!product.canBeShelved()) toBeUnshelved.add(product);
+        }
+        for(Product product : toBeUnshelved){
+            shelvedList.remove(product);
+        }
+        return shelvedList;
+    }
 
 }
