@@ -1,11 +1,10 @@
-package com.github.mahambach;
+package com.github.mahambach.products;
 
-import com.github.mahambach.products.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 public class ShopService {
@@ -36,7 +35,22 @@ public class ShopService {
     //#################################################################################################
     //#################################################################################################
     // Methoden
-    public void addProductToShelf(Product product){
+//    ProductWine   (String name, int quality,                      BigDecimal basePrice)
+//    ProductGeneric(String name, int quality, int expirationDate,  BigDecimal basePrice)
+//    ProductCheese (String name, int quality, int expirationDate,  BigDecimal basePrice)
+
+    public void addProductToShelf(ProductType type, String name, int quality, int expirationDate, BigDecimal basePrice){
+        Product product;
+        if(type == ProductType.WINE){
+            product = new ProductWine(name, quality, basePrice);
+        }
+        else if(type == ProductType.CHEESE){
+            product = new ProductCheese(name, quality, expirationDate, basePrice);
+        }
+        else{
+            product = new ProductGeneric(name, quality, expirationDate, basePrice);
+        }
+
         System.out.println("Versuche {" + product + "} ins Regal zu räumen.");
         if(product.canBeShelved()){
             shelvedList.add(product);

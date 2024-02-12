@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
-public class ProductGeneric extends Product {
+class ProductGeneric extends Product {
     // Attribute
     //#################################################################################################
     //#################################################################################################

@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.math.BigDecimal;
 
 
-public class ProductCheese extends Product {
+class ProductCheese extends Product {
     // Attribute
     private static final int MIN_QUALITY = 30;
     private static final int QUALITY_LOSS_PER_DAY = 1;

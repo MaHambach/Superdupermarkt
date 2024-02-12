@@ -10,7 +10,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @EqualsAndHashCode
-public abstract class Product {
+abstract class Product {
     // Attribute
     private String name; //Bezeichnung
     private ProductType type;

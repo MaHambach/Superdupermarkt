@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class ProductWine extends Product {
+class ProductWine extends Product {
     // Attribute
     private static final int MIN_QUALITY = 0;
     private static final int MAX_QUALITY = 50;
